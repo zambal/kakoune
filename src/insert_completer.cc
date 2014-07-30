@@ -19,15 +19,6 @@ using StringList = std::vector<String>;
 namespace
 {
 
-WordDB& get_word_db(const Buffer& buffer)
-{
-    static const ValueId word_db_id = ValueId::get_free_id();
-    Value& cache_val = buffer.values()[word_db_id];
-    if (not cache_val)
-        cache_val = Value(WordDB{buffer});
-    return cache_val.as<WordDB>();
-}
-
 template<bool other_buffers, bool subseq>
 InsertCompletion complete_word(const Buffer& buffer, ByteCoord cursor_pos)
 {

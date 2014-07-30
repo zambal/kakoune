@@ -32,6 +32,8 @@ private:
     LineToWords m_line_to_words;
 };
 
+WordDB& get_word_db(const Buffer& buffer);
+
 }
 
 #endif // word_db_hh_INCLUDED

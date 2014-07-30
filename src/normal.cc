@@ -16,6 +16,7 @@
 #include "string.hh"
 #include "user_interface.hh"
 #include "window.hh"
+#include "word_db.hh"
 
 namespace Kakoune
 {
@@ -514,8 +515,20 @@ void paste_all(Context& context, int)
 template<typename T>
 void regex_prompt(Context& context, const String prompt, T func)
 {
+    auto complete_words = [](const Context& context, CompletionFlags flags,
+                             StringView prefix, ByteCount cursor_pos)
+    {
+        ByteCount word_begin = cursor_pos;
+        while (word_begin > 0 && is_word(prefix[word_begin-1]))
+            --word_begin;
+
+        StringView word = prefix.substr(word_begin, cursor_pos - word_begin);
+        auto candidates = get_word_db(context.buffer()).find_prefix(word);
+        return Completions{word_begin, cursor_pos, candidates};
+    };
+
     SelectionList selections = context.selections();
-    context.input_handler().prompt(prompt, "", get_face("Prompt"), complete_nothing,
+    context.input_handler().prompt(prompt, "", get_face("Prompt"), complete_words,
         [=](const String& str, PromptEvent event, Context& context) mutable {
             try
             {

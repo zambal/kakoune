@@ -139,4 +139,13 @@ int WordDB::get_word_occurences(const String& word) const
     return 0;
 }
 
+WordDB& get_word_db(const Buffer& buffer)
+{
+    static const ValueId word_db_id = ValueId::get_free_id();
+    Value& cache_val = buffer.values()[word_db_id];
+    if (not cache_val)
+        cache_val = Value(WordDB{buffer});
+    return cache_val.as<WordDB>();
+}
+
 }
