@@ -63,7 +63,7 @@ def -hidden _fish_indent_on_new_line %{
 def -hidden _fish_insert_on_new_line %{
     eval -no-hooks -draft -itersel %{
         # copy _#_ comment prefix and following white spaces
-        try %{ exec -draft k<a-x>s^\h*\K#\h*<ret>yjp }
+        try %{ exec -draft k<a-x> 1s^\h*(#\h*)<ret> yjp }
         # wisely add end structure
         eval -save-regs x %{
             try %{ exec -draft k<a-x>s^\h+<ret>"xy } catch %{ reg x '' }

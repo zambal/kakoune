@@ -49,7 +49,8 @@ addhl -group /ruby/comment fill comment
 
 addhl -group /ruby/literal fill meta
 
-addhl -group /ruby/code regex \b([A-Za-z]\w*:(?=[^:]))|([$@][A-Za-z]\w*)|((?<=[^:]):[A-Za-z]\w*[=?!]?)|([A-Z]\w*|^|\h)\K::(?=[A-Z]) 0:identifier
+addhl -group /ruby/code regex \b([A-Za-z]\w*:(?=[^:]))|([$@][A-Za-z]\w*)|((?<=[^:]):[A-Za-z]\w*[=?!]?)
+addhl -group /ruby/code regex (?:[A-Z]\w*|^|\h)(::)(?=[A-Z]) 1:identifier
 
 %sh{
     # Grammar
@@ -108,7 +109,7 @@ def -hidden _ruby_filter_around_selections %{
     eval -no-hooks -draft -itersel %{
         exec <a-x>
         # remove trailing white spaces
-        try %{ exec -draft s \h + $ <ret> d }
+        try %{ exec -draft s \h+$ <ret> d }
     }
 }
 
@@ -128,15 +129,13 @@ def -hidden _ruby_indent_on_new_line %{
         try %{ exec -draft K <a-&> }
         # filter previous line
         try %{ exec -draft k : _ruby_filter_around_selections <ret> }
-        # indent after start structure
-        try %{ exec -draft k x <a-k> ^ \h * (begin|case|class|def|do|else|elsif|ensure|for|if|module|rescue|unless|until|when|while) \b <ret> j <a-gt> }
     }
 }
 
 def -hidden _ruby_insert_on_new_line %{
     eval -no-hooks -draft -itersel %{
         # copy _#_ comment prefix and following white spaces
-        try %{ exec -draft k x s ^ \h * \K \# \h * <ret> y j p }
+        try %{ exec -draft k x 1s ^\h*(\#\h*) <ret> y j p }
         # wisely add end structure
         eval -save-regs x %{
             try %{ exec -draft k x s ^ \h + <ret> \" x y } catch %{ reg x '' }
