@@ -131,11 +131,11 @@ def -hidden _c-family-insert-on-newline %[ eval -draft %[
 
         printf %s\\n '
             addhl -group / regions -default code FT \
-                string %{MAYBEAT(?<!QUOTE)"} %{(?<!\\)(\\\\)*"} "" \
+                string %{(^|[^QUOTE])MAYBEAT"} %{(^|[^\\])(\\\\)*\K"} "" \
                 comment /\* \*/ "" \
                 comment // $ "" \
                 disabled ^\h*?#\h*if\h+(0|FALSE)\b "#\h*(else|elif|endif)" "#\h*if(def)?" \
-                macro %{^\h*?\K#} %{(?<!\\)\n} ""
+                macro %{^\h*?\K#} %{\n} %{\\\n}
 
             addhl -group /FT/string fill string
             addhl -group /FT/comment fill comment

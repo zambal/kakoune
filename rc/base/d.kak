@@ -13,7 +13,7 @@ hook global BufCreate .*\.di? %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code d \
-    string '"' (?<!\\)(\\\\)*" '' \
+    string '"' (^|[^\\])(\\\\)*\K" '' \
     verbatim_string ` ` '' \
     verbatim_string_prefixed 'r"' '"' '' \
     token '#' '\n' '' \
