@@ -16,8 +16,8 @@ hook global BufCreate .*[.](lua) %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code lua \
-    string  '"' (^|[^\\])(\\\\)*\K"   '' \
-    string  "'" (^|[^\\])(\\\\)*\K'   '' \
+    string  '"' (?:^|[^\\])(?:\\\\)*(")   '' \
+    string  "'" (?:^|[^\\])(?:\\\\)*(')   '' \
     comment '--' '$'                  '' \
     comment '\Q--[[' ']]'             '' \
 

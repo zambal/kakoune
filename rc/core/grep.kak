@@ -27,7 +27,7 @@ All the optional arguments are forwarded to the grep utility} \
 
 hook -group grep-highlight global WinSetOption filetype=grep %{
     addhl group grep
-    addhl -group grep regex "^((?:\w:)?[^:]+):(\d+):(\d+)?" 1:cyan 2:green 3:green
+    addhl -group grep regex "(?:^|\n)((?:\w:)?[^:]+):(\d+):(\d+)?" 1:cyan 2:green 3:green
     addhl -group grep line %{%opt{_grep_current_line}} default+b
 }
 
