@@ -7,10 +7,6 @@
 namespace Kakoune
 {
 
-using Utf8It = RegexUtf8It<const char*>;
-
-#ifdef KAK_USE_STDREGEX
-
 static String convert_regex(StringView re, Regex::flag_type& flags)
 {
     if (re.substr(0_byte, 4_byte) == "(?i)")
@@ -78,25 +74,18 @@ UnitTest test_convert_regex{[] {
 Regex::Regex(StringView re, flag_type flags)
     : m_str(re.str())
 {
-    String patched_re = convert_regex(re, flags);
+    String expr = convert_regex(re, flags);
+    using Utf8It = RegexUtf8It<const char*>;
 
     try
     {
-        assign(patched_re.begin(), patched_re.end(), flags);
+        assign(Utf8It{expr.begin(), expr}, Utf8It{expr.end(), expr}, flags);
     }
     catch (std::runtime_error& err)
     {
         throw regex_error(err.what());
     }
 }
-
-#else
-
-Regex::Regex(StringView re, flag_type flags) try
-    : RegexBase{Utf8It{re.begin(), re}, Utf8It{re.end(), re}}, m_str(re.str())
-{} catch (std::runtime_error& err) { throw regex_error(err.what()); }
-
-#endif
 
 String option_to_string(const Regex& re)
 {
