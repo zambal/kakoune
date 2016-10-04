@@ -943,13 +943,13 @@ void NCursesUI::abort()
 
 void NCursesUI::enable_mouse(bool enabled)
 {
-    if (enabled == m_mouse_enabled)
-        return;
-
-    m_mouse_enabled = enabled;
     if (enabled)
     {
-        mousemask(ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION, nullptr);
+        mousemask(BUTTON1_PRESSED | BUTTON1_RELEASED |
+                  NCURSES_MOUSE_MASK(m_wheel_down_button, NCURSES_BUTTON_PRESSED) |
+                  NCURSES_MOUSE_MASK(m_wheel_up_button, NCURSES_BUTTON_PRESSED) |
+                  REPORT_MOUSE_POSITION, nullptr);
+
         mouseinterval(0);
         // force enable report mouse position
         fputs("\033[?1002h", stdout);
