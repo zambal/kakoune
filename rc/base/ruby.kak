@@ -49,7 +49,7 @@ addhl -group /ruby/comment fill comment
 
 addhl -group /ruby/literal fill meta
 
-addhl -group /ruby/code regex \b([A-Za-z]\w*:(?=[^:]))|([$@][A-Za-z]\w*)|((?<=[^:]):[A-Za-z]\w*[=?!]?)
+addhl -group /ruby/code regex \b([A-Za-z]\w*:(?=[^:]))|([$@][A-Za-z]\w*)|((?<=[^:]):[A-Za-z]\w*[=?!]?) 0:identifier
 addhl -group /ruby/code regex (?:[A-Z]\w*|^|\h)(::)(?=[A-Z]) 1:identifier
 
 %sh{
