@@ -16,7 +16,7 @@ hook global BufCreate .*[.](json) %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code json \
-    string '"' (^|[^\\])(\\\\)*\K" ''
+    string '"' (?:^|[^\\])(?:\\\\)*(") ''
 
 addhl -group /json/string fill string
 

@@ -20,9 +20,9 @@ addhl -group / regions -default code coffee     \
     single_string "'''" "'''"                '' \
     comment       '###' '###'                '' \
     regex         '///' ///[gimy]*           '' \
-    double_string '"' (^|[^\\])(\\\\)*\K"        '' \
+    double_string '"' (?:^|[^\\])(?:\\\\)*(")        '' \
     single_string "'" "'"                    '' \
-    regex         '/' (^|[^\\])(\\\\)*\K/[gimy]* '' \
+    regex         '/' (?:^|[^\\])(?:\\\\)*(/[gimy]*) '' \
     comment       '#' '$'                    ''
 
 # Regular expression flags are: g → global match, i → ignore case, m → multi-lines, y → sticky

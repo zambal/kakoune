@@ -13,7 +13,7 @@ hook global BufCreate (.+/)?[Tt]upfile %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code tupfile \
-    string '"' (^|[^\\])(\\\\)*\K" '' \
+    string '"' (?:^|[^\\])(?:\\\\)*(") '' \
     comment '#' $ ''
 
 addhl -group /tupfile/string fill string

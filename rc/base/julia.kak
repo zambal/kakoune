@@ -12,8 +12,8 @@ hook global BufCreate .*\.(jl) %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code julia \
-    string  '"' (^|[^\\])(\\\\)*\K"     '' \
-    comment '#' '$'                     ''
+    string  '"' (?:^|[^\\])(?:\\\\)*(")   '' \
+    comment '#' '$'                       ''
 
 addhl -group /julia/string fill string
 addhl -group /julia/comment fill comment

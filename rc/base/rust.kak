@@ -17,9 +17,9 @@ hook global BufCreate .*[.](rust|rs) %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code rust \
-    string  '"' (^|[^\\])(\\\\)*\K"    '' \
-    comment //   $                     '' \
-    comment /\* \*/                   /\*
+    string  '"' (?:^|[^\\])(?:\\\\)*(")    '' \
+    comment //   $                         '' \
+    comment /\* \*/                        /\*
 
 addhl -group /rust/string  fill string
 addhl -group /rust/comment fill comment

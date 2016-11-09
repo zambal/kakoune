@@ -22,8 +22,8 @@ addhl -group / regions -default selector css \
 addhl -group /css/comment fill comment
 
 addhl -group /css/declaration regions content \
-    string '"' (^|[^\\])(\\\\)*\K"         '' \
-    string "'" "'"                         ''
+    string '"' (?:^|[^\\])(?:\\\\)*(") '' \
+    string "'" "'"                     ''
 
 addhl -group /css/declaration/content/string fill string
 

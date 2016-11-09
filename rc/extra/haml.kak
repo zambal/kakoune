@@ -17,10 +17,10 @@ hook global BufCreate .*[.](haml) %{
 
 addhl -group / regions -default code haml                                                         \
     comment ^\h*/                                                                 $            '' \
-    eval    ^\h*%([A-Za-z][A-Za-z0-9_-]*)([#.][A-Za-z][A-Za-z0-9_-]*)?\{\K|#\{\K (?=\})        \{ \
-    eval    ^\h*[=-]\K                                                           (?=[^|]\n)    '' \
-    coffee  ^\h*:coffee\K                                                        (?=^\h*[%=-]) '' \
-    sass    ^\h*:sass\K                                                          (?=^\h*[%=-]) ''
+    eval    (?:^\h*%(?:[A-Za-z][A-Za-z0-9_-]*)(?:[#.][A-Za-z][A-Za-z0-9_-]*)?\{|#\{)() (?=\})        \{ \
+    eval    ^\h*[=-]()                                                           (?=[^|]\n)    '' \
+    coffee  ^\h*:coffee()                                                        (?=^\h*[%=-]) '' \
+    sass    ^\h*:sass()                                                          (?=^\h*[%=-]) ''
 
 # Filters
 # http://haml.info/docs/yardoc/file.REFERENCE.html#filters

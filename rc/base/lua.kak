@@ -79,7 +79,7 @@ def -hidden _lua_indent_on_new_line %{
         # filter previous line
         try %{ exec -draft k : _lua_filter_around_selections <ret> }
         # copy -- comment prefix and following white spaces
-        try %{ exec -draft k x s ^ \h * \K -- \h * <ret> y j p }
+        try %{ exec -draft kx 1s^\h*(--\h*)<ret> y j p }
         # indent after start structure
         try %{ exec -draft k x <a-k> ^ \h * (else|elseif|for|function|if|while) \b <ret> j <a-gt> }
         # wisely add end structure

@@ -3,7 +3,7 @@ hook global BufCreate .*\.(repo|service|target|socket|ini|cfg) %{
 }
 
 addhl -group / regions -default code ini \
-    comment (^|\h)\K\# $ ''
+    comment (?:^|\h)(\#) $ ''
 
 addhl -group /ini/code regex "^\h*\[[^\]]*\]" 0:title
 addhl -group /ini/code regex "^\h*([^\[][^=\n]*=)([^\n]*)" 1:identifier 2:value

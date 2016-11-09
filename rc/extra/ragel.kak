@@ -18,9 +18,9 @@ hook global BufCreate .*[.](ragel|rl) %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code ragel \
-    string  '"' (^|[^\\])(\\\\)*\K"     '' \
-    string  "'" "'"                     '' \
-    comment '#' '$'                     ''
+    string  '"' (?:^|[^\\])(?:\\\\)*(")     '' \
+    string  "'" "'"                         '' \
+    comment '#' '$'                         ''
 
 addhl -group /ragel/string  fill string
 addhl -group /ragel/comment fill comment

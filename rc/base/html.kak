@@ -18,8 +18,8 @@ hook global BufCreate .*[.](html) %{
 addhl -group / regions html                  \
     comment <!--     -->                  '' \
     tag     <          >                  '' \
-    style   <style\b.*?>\K  (?=</style>)  '' \
-    script  <script\b.*?>\K (?=</script>) ''
+    style   <style\b.*?>()  (?=</style>)  '' \
+    script  <script\b.*?>() (?=</script>) ''
 
 addhl -group /html/comment fill comment
 
@@ -29,8 +29,8 @@ addhl -group /html/script ref javascript
 addhl -group /html/tag regex </?(\w+) 1:keyword
 
 addhl -group /html/tag regions content \
-    string '"' (^|[^\\])(\\\\)*\K"  '' \
-    string "'" "'"                  ''
+    string '"' (?:^|[^\\])(?:\\\\)*(")  '' \
+    string "'" "'"                      ''
 
 addhl -group /html/tag/content/string fill string
 

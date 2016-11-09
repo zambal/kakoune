@@ -16,7 +16,7 @@ hook global BufCreate .*[.](scala) %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code scala \
-    string  '"' (^|[^\\])(\\\\)*\K"     '' \
+    string  '"' (?:^|[^\\])(?:\\\\)*(") '' \
     literal  `    `                     '' \
     comment  //   $                     '' \
     comment /[*] [*]/                 /[*]

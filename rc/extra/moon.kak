@@ -16,8 +16,8 @@ hook global BufCreate .*[.](moon) %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
 addhl -group / regions -default code moon \
-    double_string '"'  (^|[^\\])(\\\\)*\K" '' \
-    single_string "'"  (^|[^\\])(\\\\)*\K' '' \
+    double_string '"'  (?:^|[^\\])(?:\\\\)*(") '' \
+    single_string "'"  (?:^|[^\\])(?:\\\\)*(') '' \
     comment       '--' '$'                 '' \
 
 addhl -group /moon/double_string fill string
@@ -85,9 +85,9 @@ def -hidden _moon_indent_on_new_line %{
         # filter previous line
         try %{ exec -draft k : _moon_filter_around_selections <ret> }
         # copy -- comment prefix and following white spaces
-        try %{ exec -draft k x s ^ \h * \K -- \h * <ret> y j p }
+        try %{ exec -draft kx 1s^\h*(--\h*)<ret> yjp }
         # indent after start structure
-        try %{ exec -draft k x <a-k> ^ \h * (class|else(if)?|for|if|switch|unless|when|while|with) \b | ([:=]|[-=]>) $ <ret> j <a-gt> }
+        try %{ exec -draft kx<a-k> ^ \h * (class|else(if)?|for|if|switch|unless|when|while|with) \b | ([:=]|[-=]>) $ <ret> j <a-gt> }
         # deindent after return statements
         try %{ exec -draft k x <a-k> ^ \h * (break|return) \b <ret> j <a-lt> }
     }
